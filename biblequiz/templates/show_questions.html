@@ -1,0 +1,474 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+    body{
+  /* background-color: rgb(192, 231, 254);Rouge */
+}
+.conteneur-flex{
+    display: flex;
+    flex-flow : row wrap;
+    justify-content: space-around;
+    background-color: #99F; /*Bleu*/
+}
+
+.element-flex{
+    flex: 0 1 20%;
+    background-color: #FC8; /*Jaune*/
+    height: 50px;
+    margin: 10px;
+}
+
+/*Pour tous les appareils équipés d'écrans et dont la taille est inférieure à 780px*/
+@media screen and (max-width: 780px){
+    /* body{
+        background-color: #848; Violet
+  } */
+    .conteneur-flex{
+        flex-flow: column wrap;
+    }
+}
+
+
+      .questions-affiche{
+    /* background-color: #c4ccd9; */
+    /* border: 1px solid rgb(142, 10, 236); */
+    /* border-bottom: 5px solid rgb(142, 10, 236); */
+    margin-top: 10px; /* Ajoute une marge de 10 pixels en haut */
+    margin-bottom: 10px; /* Ajoute une marge de 10 pixels en bas */
+    padding: 20px;
+  }
+      .responses-affiche{
+    /* background-color: #0A588E; */
+    border: 1px solid #0A588E;
+    /* border-radius: 10%; */
+    /* border-bottom: 5px solid rgb(142, 10, 236); */
+    margin-top: 10px; /* Ajoute une marge de 10 pixels en haut */
+    margin-bottom: 10px; /* Ajoute une marge de 10 pixels en bas */
+    padding: 20px;
+    color: #fff;
+  }
+
+
+  .badge {
+    /* Un rond vert */
+    height: 100px;
+    width: 300px;
+    border-radius: 10%;
+    
+    
+    /* Des initiales blanches */
+    color: white;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 55px;
+    font-weight: bold;
+    /* Et centrées */
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .performance{
+    background-color: #fff;
+     border-bottom: 5px solid limegreen;
+     border-top: 5px solid limegreen;
+     border-radius: 10%;
+  }
+  .amount{
+    background-color: #fff;
+    border-bottom: 5px solid rgb(10, 48, 236);
+    border-top: 5px solid rgb(10, 48, 236);
+     border-radius: 10%;
+  }
+  .count{
+    background-color: #fff;
+    border-bottom: 5px solid rgb(249, 13, 13);
+    border-top: 5px solid rgb(249, 13, 13);
+     border-radius: 10%;
+  }
+
+  .disponibles{
+    background-color: #fff;
+    border-bottom: 5px solid rgb(142, 10, 236);
+    border-top: 5px solid rgb(142, 10, 236);
+  }
+  .cardquiz{
+    background-color: #fff;
+    border: 5px solid #0A588E;
+  }
+  .Justes{
+    background-color:  #fff;
+    border-bottom: 5px solid limegreen;
+    border-top: 5px solid limegreen;
+  }
+  .fausses{
+    background-color:  #fff;
+    border-bottom: 5px solid rgb(158, 8, 8);
+    border-top: 5px solid rgb(158, 8, 8);
+  }
+  .point{
+    background-color: #fff;
+    border-bottom: 5px solid rgb(243, 178, 15);
+    border-top: 5px solid rgb(243, 178, 15);
+  }
+  
+
+/* debut style ficgure */
+  .highcharts-figure,
+.highcharts-data-table table {
+    min-width: 200px;
+    max-width: 300px;
+    margin: 1em auto;
+}
+
+.highcharts-data-table table {
+    font-family: Verdana, sans-serif;
+    border-collapse: collapse;
+    border: 1px solid #ebebeb;
+    margin: 10px auto;
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+}
+
+.highcharts-data-table caption {
+    padding: 1em 0;
+    font-size: 1.2em;
+    color: #555;
+}
+
+.highcharts-data-table th {
+    font-weight: 600;
+    padding: 0.5em;
+}
+
+.highcharts-data-table td,
+.highcharts-data-table th,
+.highcharts-data-table caption {
+    padding: 0.5em;
+}
+
+.highcharts-data-table thead tr,
+.highcharts-data-table tr:nth-child(even) {
+    background: #f8f8f8;
+}
+
+.highcharts-data-table tr:hover {
+    background: #f1f7ff;
+}
+/* Fin style figure */
+
+/* styles <hr> */
+ /* .hr-custom {
+   
+    width: 300px;Définit la largeur de la ligne à 80% de la largeur de son conteneur
+    height: 4px; Définit la hauteur de la ligne à 2 pixels
+    margin: 10px auto; Centrer la ligne horizontalement avec une marge de 10 pixels en haut et en bas
+    background-color: limegreen;  Couleur de fond de la ligne
+
+} */
+
+input[type="radio"] {
+    width: 20px; /* Largeur souhaitée */
+    height: 20px; /* Hauteur souhaitée */
+}
+label {
+    font-size: 16px; /* Taille de la police souhaitée */
+    color: #000;
+}
+p {
+    font-size: 30px; /* Taille de la police souhaitée */
+    font-style: italic;
+    text-align: center;
+}
+</style>
+<body>
+    <h1>Questions du jour</h1>
+
+<!-- show_questions.html -->
+
+
+
+<div class="row">
+    <div class="row">
+        <h5 class="mb-2">Situation du jour</h5>
+
+                <div class="col-xl-3 col-md-6">
+                    <div class="card">
+                        <div class="card-body badge disponibles">
+                            <div class="d-flex doc-wrap align-items-center">
+                                <div class="avatar-md flex-shrink-0">
+                                    <span class="avatar-title bg-subtle-primary text-primary rounded fs-2">
+                                        <!-- <img src="static/assets/images/dossier.svg" alt="" class="w-50 mx-auto"> -->
+                                        <i class="fa fa-question" style="color: rgb(142, 10, 236);"></i>
+                                    </span>
+                                </div>
+                                <div class="flex-grow-1 overflow-hidden ms-4">
+                                    <p class="text-gray font-size-15 mb-2" >Questions autorisées/jour : </p>
+                                    <h3 class="fs-4 flex-grow-1 mb-3">5</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-md-6">
+                    <div class="card">
+                        <div class="card-body badge point">
+                            <div class="d-flex doc-wrap align-items-center">
+                                <div class="avatar-md flex-shrink-0">
+                                    <span class="avatar-title bg-subtle-primary text-primary rounded fs-2">
+                                        <i class="fa fa-pen" style="color: rgb(243, 178, 15);"></i>
+                                    </span>
+                                </div>
+                                <div class="flex-grow-1 overflow-hidden ms-4">
+                                    <p class="text-gray font-size-15 mb-2"> Questions répondues: </p>
+                                    <h3 class="fs-4 flex-grow-1 mb-3" id="userResponseCount">{{ userResponse_today_count }}</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-md-6">
+                    <div class="card">
+                        <div class="card-body  badge Justes">
+                            <div class="d-flex doc-wrap align-items-center">
+                                <div class="avatar-md flex-shrink-0">
+                                    <span class="avatar-title bg-subtle-primary text-primary rounded fs-2">
+                                        <i class="fa fa-thin fa-thumbs-up" style="color: limegreen;"></i>
+                                        
+                                    </span>
+                                </div>
+                                <div class="flex-grow-1 overflow-hidden ms-4">
+                                    <p class="text-gray font-size-15 mb-2"> Réponses Justes: </p>
+                                    <h3 class="fs-4 flex-grow-1 mb-3" id="userResponseCountJust"> {{ userResponse_today_count_just }}</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+  
+                <div class="col-xl-3 col-md-6">
+                    <div class="card">
+                        <div class="card-body badge fausses">
+                            <div class="d-flex doc-wrap align-items-center">
+                                <div class="avatar-md flex-shrink-0">
+                                    <span class="avatar-title bg-subtle-primary text-primary rounded fs-2">
+                                        <i class="fa fa-thin fa-thumbs-down" style="color: rgb(158, 8, 8);"></i>
+                                    </span>
+                                </div>
+                                <div class="flex-grow-1 overflow-hidden ms-4">
+                                    <p class="text-gray font-size-15 mb-2"> Réponses fausses:</p>
+                                    <h3 class="fs-4 flex-grow-1 mb-3" id="userResponseCountFaux">{{ userResponse_today_count_faux }}</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+
+        
+<div class="row">   
+	<div class="col-md-5 col-xl-12">
+		<div class="card cardquiz">
+			<div class="card-body">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="mb-12">
+							<form id="answer-form" method="post" action="{% url 'save_answers_derniere' %}">
+                                {% csrf_token %}
+                            <div class="question-container">
+                            
+                                {% for question in questions %}
+                                
+                                <div class="question" id="question{{ forloop.counter }}" data-question-id="{{ question.id }}">
+                                    <div class="">  
+                                        <!-- <h3>Question</h3> -->
+                                        
+                                    <p>{{ question.question_text }}</p>
+                                    
+                                </div>
+                                <div class="">  
+                                    <!-- <h3>Réponses</h3> -->
+                                    <hr> 
+                                {% for answer in question.answer_set.all %}
+                                <div class="responses-affiche">
+
+                                    <input type="hidden" name="question_idd" value="{{ question.id }}">
+                                    <input type="radio" id="answer{{ answer.id }}" name="question{{ question.id }}" value="{{ answer.id }}">
+                                    <label for="answer{{ answer.id }}">{{ answer.answer_text }}</label><br>
+                                </div>
+                                    {% endfor %}
+                                   
+                                </div> 
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div class="card"></div>
+                            <button class="btn btn-primary" type="button" id="next-question-btn">Question suivante</button>
+                            <button class="btn btn-primary" type="submit" id="submit-btn" style="display: none;">Dernière question</button>
+                            
+                            </form>
+						</div>
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
+</div>
+
+
+
+<script>
+   document.addEventListener("DOMContentLoaded", function () {
+
+    var currentQuestionIndex = 0;
+    var questions = document.querySelectorAll(".question");
+    var nextButton = document.getElementById("next-question-btn");
+    var submitButton = document.getElementById("submit-btn");
+    
+
+    // Masquer toutes les questions sauf la première
+    for (var i = 1; i < questions.length; i++) {
+        questions[i].style.display = "none";
+    }
+
+    if (questions.length === 1) {
+        submitButton.style.display = "block";
+        nextButton.style.display = "none";
+    }
+    // Gérer le clic sur le bouton "Question suivante"
+    nextButton.addEventListener("click", function () {
+        var selectedAnswerId = getSelectedAnswerId();
+        
+        if (selectedAnswerId !== null) {
+            saveAnswer(selectedAnswerId);
+
+            questions[currentQuestionIndex].style.display = "none";
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                
+                questions[currentQuestionIndex].style.display = "block";
+                
+                if (currentQuestionIndex === questions.length - 1) {
+                    // Si c'est la dernière question, afficher le bouton de soumission
+                    submitButton.style.display = "block";
+                    nextButton.style.display = "none";
+                }
+            }
+        } else {
+            alert("Veuillez sélectionner une réponse avant de passer à la question suivante.");
+        }
+    });
+
+        // Fonction pour obtenir l'ID de la question affichée
+
+
+    // Fonction pour obtenir l'ID de la réponse sélectionnée
+    function getSelectedAnswerId() {
+        var radioButtons = questions[currentQuestionIndex].querySelectorAll("input[type='radio']");
+        for (var i = 0; i < radioButtons.length; i++) {
+            if (radioButtons[i].checked) {
+                return radioButtons[i].value;
+            }
+        }
+        return null;
+    }
+
+    // Fonction pour enregistrer la réponse avec AJAX
+    function saveAnswer(answerId) {
+        
+        //var questionId = questions[currentQuestionIndex].dataset.questionId;
+        var questionId = getCurrentQuestionId();
+        var Idquestion_aff = getCurrentQuestionIdaff();
+        var succes = 'Bonne réponse';
+        var echec = 'Mauvaise réponse';
+
+        var data = {
+            'question_id': questionId,
+            'answer_id': answerId,
+            'Idquestion_aff':Idquestion_aff,
+        };
+        // Envoyer les données JSON à la vue Django avec AJAX
+        fetch('save_answers/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+            if (response.ok) {
+                
+                console.log('Réponse enregistrée avec succès.');
+                fetchAndUpdateResponseCounts();
+               
+
+            } else {
+
+                console.error('Erreur lors de l\'enregistrement de la réponse.');
+                alert('Erreur lors de l\'enregistrement de la réponse.')
+            }
+        })
+        .catch(error => {
+            console.error('Erreur lors de l\'enregistrement de la réponse :', error);
+        });
+            function getCurrentQuestionId() {
+        return questions[currentQuestionIndex].dataset.questionId;
+        }
+            function getCurrentQuestionIdaff() {
+                idquestion_aff = currentQuestionIndex
+                idquestion_aff++
+            
+        return questions[idquestion_aff].dataset.questionId;
+        }
+
+
+    }
+
+    // Fonction pour obtenir la valeur du jeton CSRF
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+});
+
+
+// Code JavaScript pour effectuer une requête AJAX pour récupérer les nouvelles valeurs des réponses
+function fetchAndUpdateResponseCounts() {
+    
+    fetch('actualise_user_response/')
+        .then(response => response.json())
+        .then(data => updateResponseCounts(data))
+        .catch(error => console.error('Error fetching response counts:', error));
+}
+
+// Code JavaScript pour mettre à jour les valeurs sur la page
+function updateResponseCounts(responseData) {
+    document.getElementById('userResponseCount').innerText = responseData.userResponse_today_count;
+    document.getElementById('userResponseCountJust').innerText = responseData.userResponse_today_count_just;
+    document.getElementById('userResponseCountFaux').innerText = responseData.userResponse_today_count_faux;
+    document.getElementById('status_reponse').innerText = responseData.succes;
+}
+
+
+</script>
+
+</body>
+
+
+{% endblock %}

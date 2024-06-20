@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+    {% load static %}
+    <head>     
+    <meta charset="utf-8">
+    <title>bible quiz fada</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Système de gestion de dossiers" name="description">
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="static/assets/images/logo.jpg">
+
+    <!-- plugin css -->
+    <link href="{%static 'assets/libs/jsvectormap/css/jsvectormap.min.css'%}" rel="stylesheet" type="text/css">
+    <link href="{%static 'assets/libs/select2/css/select2.min.css'%}" rel="stylesheet" type="text/css">
+    <!-- DataTables -->
+    <link href="{%static 'assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{%static 'assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css' %}" rel="stylesheet" type="text/css">
+
+    <!-- Layout Js -->
+    <script src="{%static 'assets/js/layout.js' %}"></script>
+    <!-- Bootstrap Css -->
+    <link href="{%static 'assets/css/bootstrap.min.css' %}" id="bootstrap-style" rel="stylesheet" type="text/css">
+    <!-- Icons Css -->
+    <link href="{%static 'assets/css/icons.min.css' %}" rel="stylesheet" type="text/css">
+    <!-- App Css-->
+    <link href="{%static 'assets/css/app.min.css' %}" id="app-style" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+    </head>
+
+    <body class="font-inter">
+        <div class="container-fluid">
+            <div class="row align-items-center vh-100 wrapper-back justify-content-center">
+                <div class="col-12 col-xl-6 col-lg-3 col-sm-4 col-md-6">
+                    <div class="auth-box p-4 shadow-sm">
+                        <div class="text-center 2xl:mb-10 mb-4">
+                            <div class="mobile-logo text-center mb-6 lg:hidden block">
+                                <a href="index.html">
+                                    <img src="static/assets/images/logo.jpg" alt="" class="w-25">
+                                </a>
+                            </div>
+                             <h3 class="mt-4 mb-0">Objectif journalier</h3>
+                            <!-- <p class="fw-lighter text-body-tertiary desc-title">
+                               Pour créer votre compte, veuillez remplir les champs ci-dessous
+                            </p> -->
+                        </div>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+<section class="mail-seccess section">
+    {% csrf_token %}
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6 offset-lg-3 col-12">
+				<!-- Error Inner -->
+				<div class="success-inner">
+ <style>
+  .badge {
+    /* Un rond vert */
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    background-color: limegreen;
+    border: 10px solid silver;
+    /* Des initiales blanches */
+    color: white;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 55px;
+    font-weight: bold;
+    /* Et centrées */
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .rotate {
+    /* Un rond vert */
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    background-color: red;
+    border: 10px solid silver;
+    /* Des initiales blanches */
+    color: white;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 55px;
+    font-weight: bold;
+    /* Et centrées */
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+  }
+</style>
+
+
+                    <!-- https://fontawesome.com/icons -->
+                    {% if userresponse_today_count < 5 %}
+                    <h3><span>La base question est en cours de mise à jour</span></h3>
+                    <div class="rotate"><i class="fa fa-thin fa-rotate-right"></i></div>
+                    {% else %}
+					<h3><span>Votre objectif journalier est atteint. Vous avez déjà Répondu à vos 5 questions d'aujourd'hui</span></h3>
+					<div class="badge badge-200"><i class="fa fa-thin fa-thumbs-up"></i></div>
+                    {% endif %}
+                    
+					<form action="{% url 'accueil' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="" value="">
+                        <input type="hidden" name="" value="">
+						<p></p>
+                        <button class="buttontext buttonfond">Je veux voir ma performance</button>
+                    </form>
+				</div>
+				<!--/ End Error Inner -->
+			</div>
+		</div>
+	</div>
+
+    
+    <style>
+
+body{margin-top:0px;}
+.mail-seccess {
+    text-align: center;
+	background: #fff;
+	border-top: 1px solid #eee;
+}
+.mail-seccess .success-inner {
+	display: inline-block;
+}
+.mail-seccess .success-inner h1 {
+	font-size: 100px;
+	text-shadow: 3px 5px 2px #3333;
+	color: #006DFE;
+	font-weight: 700;
+}
+.mail-seccess .success-inner h1 span {
+	display: block;
+	font-size: 25px;
+	color: #333;
+	font-weight: 600;
+	text-shadow: none;
+	margin-top: 20px;
+}
+.mail-seccess .success-inner p {
+	padding: 20px 15px;
+}
+.mail-seccess .success-inner .btn{
+	color:#fff;
+}
+.buttontext {
+              border: none;
+              color: white;
+              padding: 15px 32px;
+              text-align: center;
+              text-decoration: none;
+              display: inline-block;
+              font-size: 16px;
+              margin: 4px 2px;
+              cursor: pointer;
+        }
+    
+        .buttonfond {background-color: #1ddc1a;}
+
+    </style>
+</section>
+
+<div class="row">
+    <div class="col-auto mx-auto mt-4">
+        <div class="text-sm-end desc-title">
+            <small>
+                <script>document.write(new Date().getFullYear())</script> © bible quiz fada.
+                Tous droits r&eacute;serv&eacute;s
+            </small>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- JAVASCRIPT -->
+<script src="{% static 'assets/libs/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'assets/libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'assets/libs/metismenu/metisMenu.min.js' %}"></script>
+<script src="{% static 'assets/libs/simplebar/simplebar.min.js' %}"></script>
+<script src="{% static 'assets/libs/node-waves/waves.min.js' %}"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+<!-- Icon -->
+<script src="{% static 'assets/monochrome/bundle.js' %}"></script>
+
+<!-- Required datatable js -->
+<script src="{% static 'assets/libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+
+<script src="{% static 'assets/js/pages/dashboard.init.js' %}"></script>
+<script src="{% static 'assets/libs/select2/js/select2.min.js' %}"></script>
+<script src="{% static 'assets/libs/bs-custom-file-input/bs-custom-file-input.min.js' %}"></script>
+<script src="{% static 'assets/js/pages/form-element.init.js' %}"></script>
+<script src="{% static 'assets/js/pages/form-advanced.init.js' %}"></script>
+<script src="{% static 'assets/js/pages/datatables.init.js' %}"></script>
+
+<!-- App js -->
+<script src="{% static 'assets/js/app.js' %}"></script>
+<!-- <script>
+document.getElementById("create-account-btn").addEventListener("click", function() {
+document.getElementById("create-account-btn").style.display = "none"; // Masque le bouton "Créer un compte"
+document.getElementById("create-account-form").style.display = "block"; // Affiche le formulaire
+});
+</script> -->
+
+</body>
+</html>
+
