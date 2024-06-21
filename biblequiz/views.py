@@ -22,15 +22,15 @@ import pandas as pd
 from django.db.models.functions import TruncMonth
 # Create your views here.
 
-import matplotlib
-matplotlib.use('Agg')  # Utiliser le backend non interactif pour Matplotlib
+# import matplotlib
+# matplotlib.use('Agg')  # Utiliser le backend non interactif pour Matplotlib
 
 from datetime import datetime
-from matplotlib.dates import MonthLocator, DateFormatter
+# from matplotlib.dates import MonthLocator, DateFormatter
 import pandas as pd
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 from django.http import HttpResponse
-from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+# from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from django.db.models.functions import TruncMonth
 from django.db.models import Count, Sum
 from .models import Transaction
@@ -552,103 +552,103 @@ def save_answers_derniere(request):
         return JsonResponse({'status': 'error', 'message': 'Méthode de requête non autorisée.'})
 
 
-def monthly_transactions_amount(request):
-    # Obtenez l'année en cours
-    current_year = datetime.now().year
+# def monthly_transactions_amount(request):
+#     # Obtenez l'année en cours
+#     current_year = datetime.now().year
     
-    # Obtenez les données mensuelles pour l'année en cours
-    monthly_transactions = Transaction.objects.filter(user=request.user,timestamp__year=current_year) \
-        .annotate(month=TruncMonth('timestamp')) \
-        .values('month') \
-        .annotate(transaction_count=Count('id'), total_amount=Sum('amount')) \
-        .order_by('month')
+#     # Obtenez les données mensuelles pour l'année en cours
+#     monthly_transactions = Transaction.objects.filter(user=request.user,timestamp__year=current_year) \
+#         .annotate(month=TruncMonth('timestamp')) \
+#         .values('month') \
+#         .annotate(transaction_count=Count('id'), total_amount=Sum('amount')) \
+#         .order_by('month')
     
-    # Convertir les résultats en DataFrame Pandas pour une manipulation facile
-    df = pd.DataFrame(monthly_transactions)
+#     # Convertir les résultats en DataFrame Pandas pour une manipulation facile
+#     df = pd.DataFrame(monthly_transactions)
 
-    # Assurez-vous que la colonne 'month' est de type datetime
-    df['month'] = pd.to_datetime(df['month'])
+#     # Assurez-vous que la colonne 'month' est de type datetime
+#     df['month'] = pd.to_datetime(df['month'])
     
-    # # Plot
-    # fig, ax1 = plt.subplots(figsize=(6, 3))
-    # ax1.plot(df['month'], df['transaction_count'], marker='o', linestyle='-', color='b', label='Transaction Count')
-    # ax1.set_xlabel('Month')
-    # ax1.set_ylabel('Transaction Count', color='b')
+#     # # Plot
+#     # fig, ax1 = plt.subplots(figsize=(6, 3))
+#     # ax1.plot(df['month'], df['transaction_count'], marker='o', linestyle='-', color='b', label='Transaction Count')
+#     # ax1.set_xlabel('Month')
+#     # ax1.set_ylabel('Transaction Count', color='b')
     
 
-    # # Créer un diagramme en camembert pour le montant total
-    # fig, ax1 = plt.subplots(figsize=(3, 3))
-    # ax1.pie(df['total_amount'], labels=df['month'].dt.strftime('%B'), autopct='%1.1f%%', startangle=140)
-    # ax1.axis('equal')  # Assurez-vous que le diagramme en camembert est circulaire
+#     # # Créer un diagramme en camembert pour le montant total
+#     # fig, ax1 = plt.subplots(figsize=(3, 3))
+#     # ax1.pie(df['total_amount'], labels=df['month'].dt.strftime('%B'), autopct='%1.1f%%', startangle=140)
+#     # ax1.axis('equal')  # Assurez-vous que le diagramme en camembert est circulaire
 
-    fig, ax = plt.subplots(figsize=(4, 4))
-    wedges, labels, autopct = ax.pie(df['total_amount'], autopct='%1.1f%%', startangle=140)
-    ax.axis('equal')  # Assurez-vous que le diagramme en camembert est circulaire
-    ax.legend(wedges, df['month'].dt.strftime('%B'), title='Mois', loc='lower center', bbox_to_anchor=(0.5, -0.2), ncol=3)
-
-
-    plt.title('Monthly Transactions for {}'.format(current_year))
-    plt.xticks(rotation=45)
-    plt.grid(True)
-    plt.tight_layout()
-
-    # Convertir le graphique en image
-    canvas = FigureCanvas(fig)
-    response = HttpResponse(content_type='image/png')
-    canvas.print_png(response)
-
-    return response
+#     fig, ax = plt.subplots(figsize=(4, 4))
+#     wedges, labels, autopct = ax.pie(df['total_amount'], autopct='%1.1f%%', startangle=140)
+#     ax.axis('equal')  # Assurez-vous que le diagramme en camembert est circulaire
+#     ax.legend(wedges, df['month'].dt.strftime('%B'), title='Mois', loc='lower center', bbox_to_anchor=(0.5, -0.2), ncol=3)
 
 
-def monthly_transactions_chart(request):
-    # Obtenez l'année en cours
-    current_year = datetime.now().year
+#     plt.title('Monthly Transactions for {}'.format(current_year))
+#     plt.xticks(rotation=45)
+#     plt.grid(True)
+#     plt.tight_layout()
+
+#     # Convertir le graphique en image
+#     canvas = FigureCanvas(fig)
+#     response = HttpResponse(content_type='image/png')
+#     canvas.print_png(response)
+
+#     return response
+
+
+# def monthly_transactions_chart(request):
+#     # Obtenez l'année en cours
+#     current_year = datetime.now().year
     
-    # Obtenez les données mensuelles pour l'année en cours
+#     # Obtenez les données mensuelles pour l'année en cours
     
-    monthly_transactions = Transaction.objects.filter(user=request.user,timestamp__year=current_year) \
-        .annotate(month=TruncMonth('timestamp')) \
-        .values('month') \
-        .annotate(transaction_count=Count('id'), total_amount=Sum('amount')) \
-        .order_by('month')
+#     monthly_transactions = Transaction.objects.filter(user=request.user,timestamp__year=current_year) \
+#         .annotate(month=TruncMonth('timestamp')) \
+#         .values('month') \
+#         .annotate(transaction_count=Count('id'), total_amount=Sum('amount')) \
+#         .order_by('month')
     
-    # Convertir les résultats en DataFrame Pandas pour une manipulation facile
-    df = pd.DataFrame(monthly_transactions)
+#     # Convertir les résultats en DataFrame Pandas pour une manipulation facile
+#     df = pd.DataFrame(monthly_transactions)
 
-    # Assurez-vous que la colonne 'month' est de type datetime
-    df['month'] = pd.to_datetime(df['month'])
+#     # Assurez-vous que la colonne 'month' est de type datetime
+#     df['month'] = pd.to_datetime(df['month'])
     
-    # Plot
-    fig, ax1 = plt.subplots(figsize=(7, 4))
-    ax1.plot(df['month'], df['transaction_count'], marker='o', linestyle='-', color='b', label='Nombre de Transactions')
-    ax1.set_xlabel('Month')
-    ax1.set_ylabel('Nombre de Transactions', color='b')
+#     # Plot
+#     fig, ax1 = plt.subplots(figsize=(7, 4))
+#     ax1.plot(df['month'], df['transaction_count'], marker='o', linestyle='-', color='b', label='Nombre de Transactions')
+#     ax1.set_xlabel('Month')
+#     ax1.set_ylabel('Nombre de Transactions', color='b')
     
-    # Configurer l'axe des abscisses pour afficher uniquement les mois de l'année en cours
-    ax1.xaxis.set_major_locator(MonthLocator())
-    ax1.xaxis.set_major_formatter(DateFormatter('%B'))  # '%B' pour afficher le nom complet du mois
+#     # Configurer l'axe des abscisses pour afficher uniquement les mois de l'année en cours
+#     ax1.xaxis.set_major_locator(MonthLocator())
+#     ax1.xaxis.set_major_formatter(DateFormatter('%B'))  # '%B' pour afficher le nom complet du mois
     
-    # Ajouter une deuxième échelle à droite pour le montant total
-    ax2 = ax1.twinx()
-    ax2.plot(df['month'], df['total_amount'], marker='s', linestyle='-', color='r', label='Montant')
-    ax2.set_ylabel('Montant', color='r')
+#     # Ajouter une deuxième échelle à droite pour le montant total
+#     ax2 = ax1.twinx()
+#     ax2.plot(df['month'], df['total_amount'], marker='s', linestyle='-', color='r', label='Montant')
+#     ax2.set_ylabel('Montant', color='r')
 
-    # Gérer la légende
-    lines, labels = ax1.get_legend_handles_labels()
-    lines2, labels2 = ax2.get_legend_handles_labels()
-    ax1.legend(lines +lines2, labels +labels2, loc='upper right')
+#     # Gérer la légende
+#     lines, labels = ax1.get_legend_handles_labels()
+#     lines2, labels2 = ax2.get_legend_handles_labels()
+#     ax1.legend(lines +lines2, labels +labels2, loc='upper right')
 
-    plt.title('Transactions Mensuelles pour {}'.format(current_year))
-    plt.xticks(rotation=45)
-    plt.grid(True)
-    plt.tight_layout()
+#     plt.title('Transactions Mensuelles pour {}'.format(current_year))
+#     plt.xticks(rotation=45)
+#     plt.grid(True)
+#     plt.tight_layout()
 
-    # Convertir le graphique en image
-    canvas = FigureCanvas(fig)
-    response = HttpResponse(content_type='image/png')
-    canvas.print_png(response)
+#     # Convertir le graphique en image
+#     canvas = FigureCanvas(fig)
+#     response = HttpResponse(content_type='image/png')
+#     canvas.print_png(response)
 
-    return response 
+#     return response 
 
 
 def actualise_user_response(request):
@@ -754,7 +754,7 @@ def espacequiz(request):
                     'userResponse_today_count_just':userResponse_today_count_just,
                     'questions': questions,
                 }
-                print('OKOKOKOK OKOKOKOK')
+                
                 return render(request,'blog_list.html',context)
                 # return render(request, 'show_questions.html', context)
             else:

@@ -40,8 +40,8 @@ urlpatterns = [
     path('save_answers_derniere/', save_answers_derniere, name='save_answers_derniere'),
     path('payment_success_view', payment_success_view,name='payment_success_view'),
     # path('monthly_transactions_count', monthly_transactions_count,name='monthly_transactions_count'),
-    path('monthly_transactions_amount', monthly_transactions_amount,name='monthly_transactions_amount'),
-    path('monthly_transactions_chart', monthly_transactions_chart,name='monthly_transactions_chart'),
+    # path('monthly_transactions_amount', monthly_transactions_amount,name='monthly_transactions_amount'),
+    # path('monthly_transactions_chart', monthly_transactions_chart,name='monthly_transactions_chart'),
     path('logout/', LogoutView.as_view(next_page=reverse_lazy('loginuser')), name='logout'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
