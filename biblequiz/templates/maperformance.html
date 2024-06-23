@@ -20,6 +20,12 @@
       <link href="static/css/style.css" rel="stylesheet" />
       <!-- responsive style -->
       <link href="static/css/responsive.css" rel="stylesheet" />
+      <style>
+         .radio-large {
+             transform: scale(2.5);
+             margin-right: 20px;
+         }
+     </style>
    </head>
    <body class="sub_page">
       <div class="hero_area">
@@ -49,7 +55,7 @@
                         <li class="nav-item">
                            <a class="nav-link" href="{% url 'espacequiz' %}">Espace Quiz</a>
                         </li>
-                         <li class="nav-item">
+                        <li class="nav-item">
                            <a class="nav-link" href="{% url 'maperformance' %}">Mes statistiques</a>
                         </li>
                         <li class="nav-item">
@@ -124,109 +130,183 @@
          <!-- end header section -->
       </div>
       <!-- inner page section -->
+      
       <section class="inner_page_head">
          <div class="container_fuild">
             <div class="row">
                <div class="col-md-12">
                   <div class="full">
-                     <h3>Testimonial</h3>
+                     <h3>Espace Quiz</h3>
+                  </div>
+                  <div class="box">
+                     <div class="detail-box">
+                        <h5>Mon solde : {{ solde_question }} question(s)</h5>
+                        <h5>Mes points : {{ nb_point }} réponse(s)</h5>
+                     </div>
                   </div>
                </div>
             </div>
          </div>
       </section>
+
+
       <!-- end inner page section -->
-      <!-- client section -->
-      <section class="client_section layout_padding">
+      <!-- why section -->
+      <!-- <section class="why_section layout_padding">
+         <div class="container">
+            <form id="answer-form" method="post" action="{% url 'save_answers_derniere' %}">
+               {% csrf_token %}
+               {% for question in questions %}
+               <div class="heading_container heading_center question" id="question{{ forloop.counter }}" data-question-id="{{ question.id }}">
+                   <h2>Question</h2>
+                   
+                           <h4>
+                              {{ question.question_text }}
+                           </h4>
+                     
+                   <div class="row">
+                     
+                       
+                        {% for answer in question.answer_set.all %} 
+                     
+                      
+                       <div class="col-md-4">
+                           <div class="box">
+                               <div class="img-box">
+                                
+                               </div>
+                               <div class="detail-box">
+                                   
+                                   <div class="responses-affiche">
+                                       <input type="hidden" name="question_idd" value="{{ question.id }}">
+                                       <input type="radio" id="answer{{ answer.id }}" name="question{{ question.id }}" value="{{ answer.id }}" class="radio-large">
+                                       <label for="answer{{ answer.id }}">{{ answer.answer_text }}</label><br>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                       {% endfor %}
+                   </div>
+               </div>
+               {% endfor %}
+               <p></p>
+               
+               <button class="btn btn-success" type="button" id="next-question-btn">Question suivante</button>
+               <button class="btn btn-success" type="submit" id="submit-btn" style="display: none;">Dernière question</button>
+           </form>
+           
+         </div>
+      </section> -->
+
+      <section class="product_section layout_padding">
          <div class="container">
             <div class="heading_container heading_center">
                <h2>
-                  Customer's Testimonial
+                  Mes <span>Statistiques</span>
                </h2>
             </div>
-            <div id="carouselExample3Controls" class="carousel slide" data-ride="carousel">
-               <div class="carousel-inner">
-                  <div class="carousel-item active">
-                     <div class="box col-lg-10 mx-auto">
-                        <div class="img_container">
-                           <div class="img-box">
-                              <div class="img_box-inner">
-                                 <img src="static/images/client.jpg" alt="">
-                              </div>
-                           </div>
-                        </div>
+            <div class="row">
+               <div class="col-sm-6 col-md-4 col-lg-3">
+                  <div class="box">
+                     <!-- <div class="option_container"> -->
                         <div class="detail-box">
                            <h5>
-                              Anna Trevor
+                             Mon solde de questions
                            </h5>
-                           <h6>
-                              Customer
-                           </h6>
-                           <p>
-                              Dignissimos reprehenderit repellendus nobis error quibusdam? Atque animi sint unde quis reprehenderit, et, perspiciatis, debitis totam est deserunt eius officiis ipsum ducimus ad labore modi voluptatibus accusantium sapiente nam! Quaerat.
-                           </p>
+                           
+                        </div>
+                        <div class="">
+                        <div class="options">
+                           <a href="" class="option1">
+                              <h3 class="fs-4 flex-grow-1 mb-3" >{{ solde_question }}</h3>
+                              
+                           </a>
+                          
                         </div>
                      </div>
-                  </div>
-                  <div class="carousel-item">
-                     <div class="box col-lg-10 mx-auto">
-                        <div class="img_container">
-                           <div class="img-box">
-                              <div class="img_box-inner">
-                                 <img src="static/images/client.jpg" alt="">
-                              </div>
-                           </div>
-                        </div>
                         <div class="detail-box">
                            <h5>
-                              Anna Trevor
+                            Mes points
                            </h5>
-                           <h6>
-                              Customer
-                           </h6>
-                           <p>
-                              Dignissimos reprehenderit repellendus nobis error quibusdam? Atque animi sint unde quis reprehenderit, et, perspiciatis, debitis totam est deserunt eius officiis ipsum ducimus ad labore modi voluptatibus accusantium sapiente nam! Quaerat.
-                           </p>
+                           
+                        </div>
+                        <div class="">
+                        <div class="options">
+                           
+                           <a href="" class="option2">
+                             
+                              <h3 class="fs-4 flex-grow-1 mb-3" > {{ nb_point }}</h3>
+                           </a>
                         </div>
                      </div>
-                  </div>
-                  <div class="carousel-item">
-                     <div class="box col-lg-10 mx-auto">
-                        <div class="img_container">
-                           <div class="img-box">
-                              <div class="img_box-inner">
-                                 <img src="static/images/client.jpg" alt="">
-                              </div>
-                           </div>
-                        </div>
-                        <div class="detail-box">
-                           <h5>
-                              Anna Trevor
-                           </h5>
-                           <h6>
-                              Customer
-                           </h6>
-                           <p>
-                              Dignissimos reprehenderit repellendus nobis error quibusdam? Atque animi sint unde quis reprehenderit, et, perspiciatis, debitis totam est deserunt eius officiis ipsum ducimus ad labore modi voluptatibus accusantium sapiente nam! Quaerat.
-                           </p>
-                        </div>
-                     </div>
+                    
+
                   </div>
                </div>
-               <div class="carousel_btn_box">
-                  <a class="carousel-control-prev" href="#carouselExample3Controls" role="button" data-slide="prev">
-                  <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
-                  <span class="sr-only">Previous</span>
-                  </a>
-                  <a class="carousel-control-next" href="#carouselExample3Controls" role="button" data-slide="next">
-                  <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
-                  <span class="sr-only">Next</span>
-                  </a>
+               <div class="col-sm-6 col-md-4 col-lg-3">
+                  <div class="box">
+                     <div class="detail-box">
+                        <h5>
+                          Les Questions répondues :   
+                        </h5>
+                        
+                     </div>
+                     <div class="">
+                        <div class="options">
+                           <a href="" class="option1">
+                           <h3 class="fs-4 flex-grow-1 mb-3" id="userResponseCount">{{ userResponse_total_count }}</h3>
+                           </a>
+                        
+                        </div>
+                     </div>
+                     
+                     
+                  </div>
                </div>
+               <div class="col-sm-6 col-md-4 col-lg-3">
+                  <div class="box">
+                                        
+                     <div class="detail-box">
+                        <h5>
+                           Les Réponses Justes :
+                        </h5>
+
+                     </div>
+                     <div class="">
+                        <div class="options">
+                           <a href="" class="option1">
+                           <h3 class=" fs-4 flex-grow-1 mb-3" id="userResponseCountJust"> {{ userResponse_total_count_just }}</h3>
+                           </a>
+
+                        </div>
+                     </div>
+
+                  </div>
+               </div>
+               <div class="col-sm-6 col-md-4 col-lg-3">
+                  <div class="box">
+                     <div class="detail-box">
+                        <h5>
+                           Les Réponses Fausses :
+                        </h5>
+                     </div>
+                     <div class="">
+                        <div class="options">
+                           <a href="" class="option1">
+                            <h3 class="fs-4 flex-grow-1 mb-3" id="userResponseCountFaux">{{ userResponse_today_count_faux }}</h3>
+                           </a>
+                        </div>
+                     </div>
+                    
+
+                  </div>
+               </div>
+ 
             </div>
+
          </div>
       </section>
-      <!-- end client section -->
+      <!-- end why section -->
       <!-- footer section -->
       <footer class="footer_section">
          <div class="container">
@@ -246,13 +326,13 @@
                         <a href="">
                         <i class="fa fa-phone" aria-hidden="true"></i>
                         <span>
-                        Call +01 1234567890
+                        Call +225 0544169597
                         </span>
                         </a>
                         <a href="">
                         <i class="fa fa-envelope" aria-hidden="true"></i>
                         <span>
-                        demo@gmail.com
+                        ogaarmand5@gmail.com
                         </span>
                         </a>
                      </div>
@@ -261,7 +341,7 @@
                <div class="col-md-4 footer-col">
                   <div class="footer_detail">
                      <a href="index.html" class="footer-logo">
-                     Famms
+                     Bible Quiz Fada
                      </a>
                      <p>
                         Necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with
@@ -303,6 +383,7 @@
             </div>
          </div>
       </footer>
+      <!-- footer section -->
       <!-- jQery -->
       <script src="static/js/jquery-3.4.1.min.js"></script>
       <!-- popper js -->
@@ -311,5 +392,131 @@
       <script src="static/js/bootstrap.js"></script>
       <!-- custom js -->
       <script src="static/js/custom.js"></script>
+      <script>
+ document.addEventListener("DOMContentLoaded", function () {
+    var currentQuestionIndex = 0;
+    var questions = document.querySelectorAll(".question");
+    var nextButton = document.getElementById("next-question-btn");
+    var submitButton = document.getElementById("submit-btn");
+
+    // Masquer toutes les questions sauf la première
+    for (var i = 1; i < questions.length; i++) {
+        questions[i].style.display = "none";
+    }
+
+    if (questions.length === 1) {
+        submitButton.style.display = "block";
+        nextButton.style.display = "none";
+    }
+
+    // Gérer le clic sur le bouton "Question suivante"
+    nextButton.addEventListener("click", function () {
+        var selectedAnswerId = getSelectedAnswerId();
+        if (selectedAnswerId !== null) {
+            saveAnswer(selectedAnswerId);
+
+            questions[currentQuestionIndex].style.display = "none";
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                questions[currentQuestionIndex].style.display = "block";
+
+                if (currentQuestionIndex === questions.length - 1) {
+                    // Si c'est la dernière question, afficher le bouton de soumission
+                    submitButton.style.display = "block";
+                    nextButton.style.display = "none";
+                }
+            }
+        } else {
+            alert("Veuillez sélectionner une réponse avant de passer à la question suivante.");
+        }
+    });
+
+    // Fonction pour obtenir l'ID de la réponse sélectionnée
+    function getSelectedAnswerId() {
+        var radioButtons = questions[currentQuestionIndex].querySelectorAll("input[type='radio']");
+        for (var i = 0; i < radioButtons.length; i++) {
+            if (radioButtons[i].checked) {
+                return radioButtons[i].value;
+            }
+        }
+        return null;
+    }
+
+    // Fonction pour enregistrer la réponse avec AJAX
+    function saveAnswer(answerId) {
+        var questionId = getCurrentQuestionId();
+        var Idquestion_aff = getCurrentQuestionIdaff();
+        var data = {
+            'question_id': questionId,
+            'answer_id': answerId,
+            'Idquestion_aff':Idquestion_aff,
+        };
+
+        fetch('save_answers', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log('Réponse enregistrée avec succès.');
+                fetchAndUpdateResponseCounts();
+            } else {
+                console.error('Erreur lors de l\'enregistrement de la réponse.');
+                alert('Erreur lors de l\'enregistrement de la réponse.')
+            }
+        })
+        .catch(error => {
+            console.error('Erreur lors de l\'enregistrement de la réponse :', error);
+        });
+        function getCurrentQuestionIdaff() {
+                idquestion_aff = currentQuestionIndex
+                idquestion_aff++
+            
+        return questions[idquestion_aff].dataset.questionId;
+        }
+    }
+
+    function getCurrentQuestionId() {
+        return questions[currentQuestionIndex].dataset.questionId;
+    }
+
+    // Fonction pour obtenir la valeur du jeton CSRF
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    // Code JavaScript pour effectuer une requête AJAX pour récupérer les nouvelles valeurs des réponses
+    function fetchAndUpdateResponseCounts() {
+        fetch('actualise_user_response')
+            .then(response => response.json())
+            .then(data => updateResponseCounts(data))
+            .catch(error => console.error('Error fetching response counts:', error));
+    }
+
+    // Code JavaScript pour mettre à jour les valeurs sur la page
+    function updateResponseCounts(responseData) {
+        document.getElementById('userResponseCount').innerText = responseData.userResponse_today_count;
+        document.getElementById('userResponseCountJust').innerText = responseData.userResponse_today_count_just;
+        document.getElementById('userResponseCountFaux').innerText = responseData.userResponse_today_count_faux;
+        document.getElementById('status_reponse').innerText = responseData.succes;
+    }
+});
+
+      </script>
    </body>
 </html>

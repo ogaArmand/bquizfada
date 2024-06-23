@@ -56,6 +56,9 @@
                            <a class="nav-link" href="{% url 'show_questions' %}">Espace Quiz</a>
                         </li>
                         <li class="nav-item">
+                           <a class="nav-link" href="{% url 'maperformance' %}">Mes statistiques</a>
+                        </li>
+                        <li class="nav-item">
                            <a class="nav-link" href="{% url 'contacts' %}">Contact</a>
                         </li>
                         <li class="nav-item">
@@ -135,104 +138,17 @@
                   <div class="full">
                      <h3>Espace Quiz</h3>
                   </div>
+                  <div class="box">
+                     <div class="detail-box">
+                        <h5>Mon solde : {{ solde_question }} question(s)</h5>
+                        <h5>Mes points : {{ nb_point }} réponse(s)</h5>
+                     </div>
+                  </div>
                </div>
             </div>
          </div>
       </section>
-      <section class="product_section layout_padding">
-         <div class="container">
-            <div class="heading_container heading_center">
-               <h2>
-                  Mes <span>Statistiques</span>
-               </h2>
-            </div>
-            <div class="row">
-               <div class="col-sm-6 col-md-4 col-lg-3">
-                  <div class="box">
-                     <!-- <div class="option_container"> -->
-                        <div class="detail-box">
-                           <h5>
-                             les Questions autorisées/jour :
-                           </h5>
-                           
-                        </div>
-                        <div class="">
-                        <div class="options">
-                           <a href="" class="option1">
-                           5
-                           </a>
-                           <!-- <a href="" class="option2">
-                           Buy Now
-                           </a> -->
-                        </div>
-                     </div>
-                    
 
-                  </div>
-               </div>
-               <div class="col-sm-6 col-md-4 col-lg-3">
-                  <div class="box">
-                     <div class="detail-box">
-                        <h5>
-                          Les Questions répondues :   
-                        </h5>
-                        
-                     </div>
-                     <div class="">
-                        <div class="options">
-                           <a href="" class="option1">
-                           4
-                           </a>
-                        
-                        </div>
-                     </div>
-                     
-                     
-                  </div>
-               </div>
-               <div class="col-sm-6 col-md-4 col-lg-3">
-                  <div class="box">
-                                        
-                     <div class="detail-box">
-                        <h5>
-                           Les Réponses Justes :
-                        </h5>
-
-                     </div>
-                     <div class="">
-                        <div class="options">
-                           <a href="" class="option1">
-                           3
-                           </a>
-
-                        </div>
-                     </div>
-
-                  </div>
-               </div>
-               <div class="col-sm-6 col-md-4 col-lg-3">
-                  <div class="box">
-                     <div class="detail-box">
-                        <h5>
-                           Les Réponses Fausses :
-                        </h5>
-                     </div>
-                     <div class="">
-                        <div class="options">
-                           <a href="" class="option1">
-                           1
-                           </a>
-                        </div>
-                     </div>
-                    
-
-                  </div>
-               </div>
- 
-            </div>
-
-         </div>
-      </section>
 
       <!-- end inner page section -->
       <!-- why section -->
@@ -279,6 +195,102 @@
                <button class="btn btn-success" type="submit" id="submit-btn" style="display: none;">Dernière question</button>
            </form>
            
+         </div>
+      </section>
+
+      <section class="product_section layout_padding">
+         <div class="container">
+            <div class="heading_container heading_center">
+               <h2>
+                  Mes <span>Statistiques</span>
+               </h2>
+            </div>
+            <div class="row">
+               <div class="col-sm-6 col-md-4 col-lg-3">
+                  <div class="box">
+                     <!-- <div class="option_container"> -->
+                        <div class="detail-box">
+                           <h5>
+                             les Questions autorisées/jour :
+                           </h5>
+                           
+                        </div>
+                        <div class="">
+                        <div class="options">
+                           <a href="" class="option1">
+                              <h3 class="fs-4 flex-grow-1 mb-3" >5</h3>
+                              
+                           </a>
+                           <!-- <a href="" class="option2">
+                           Buy Now
+                           </a> -->
+                        </div>
+                     </div>
+                    
+
+                  </div>
+               </div>
+               <div class="col-sm-6 col-md-4 col-lg-3">
+                  <div class="box">
+                     <div class="detail-box">
+                        <h5>
+                          Les Questions répondues :   
+                        </h5>
+                        
+                     </div>
+                     <div class="">
+                        <div class="options">
+                           <a href="" class="option1">
+                           <h3 class="fs-4 flex-grow-1 mb-3" id="userResponseCount">{{ userResponse_today_count }}</h3>
+                           </a>
+                        
+                        </div>
+                     </div>
+                     
+                     
+                  </div>
+               </div>
+               <div class="col-sm-6 col-md-4 col-lg-3">
+                  <div class="box">
+                                        
+                     <div class="detail-box">
+                        <h5>
+                           Les Réponses Justes :
+                        </h5>
+
+                     </div>
+                     <div class="">
+                        <div class="options">
+                           <a href="" class="option1">
+                           <h3 class="fs-4 flex-grow-1 mb-3" id="userResponseCountJust"> {{ userResponse_today_count_just }}</h3>
+                           </a>
+
+                        </div>
+                     </div>
+
+                  </div>
+               </div>
+               <div class="col-sm-6 col-md-4 col-lg-3">
+                  <div class="box">
+                     <div class="detail-box">
+                        <h5>
+                           Les Réponses Fausses :
+                        </h5>
+                     </div>
+                     <div class="">
+                        <div class="options">
+                           <a href="" class="option1">
+                            <h3 class="fs-4 flex-grow-1 mb-3" id="userResponseCountFaux">{{ userResponse_today_count_faux }}</h3>
+                           </a>
+                        </div>
+                     </div>
+                    
+
+                  </div>
+               </div>
+ 
+            </div>
+
          </div>
       </section>
       <!-- end why section -->
@@ -427,7 +439,7 @@
             'Idquestion_aff':Idquestion_aff,
         };
 
-        fetch('save_answers/', {
+        fetch('save_answers', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -477,7 +489,7 @@
 
     // Code JavaScript pour effectuer une requête AJAX pour récupérer les nouvelles valeurs des réponses
     function fetchAndUpdateResponseCounts() {
-        fetch('actualise_user_response/')
+        fetch('actualise_user_response')
             .then(response => response.json())
             .then(data => updateResponseCounts(data))
             .catch(error => console.error('Error fetching response counts:', error));

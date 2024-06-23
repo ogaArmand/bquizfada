@@ -142,7 +142,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/articles/'
-# MEDIA_ROOT = os.path.join(BASE_DIR,"media")
+# STATIC_ROOT = os.path.join(BASE_DIR,"static")
 APPEND_SLASH=False
 LOGIN_REDIRECT_URL = 'accueil'
 # LOGIN_URL = 'login'

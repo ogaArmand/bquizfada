@@ -1,0 +1,78 @@
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+<section class="mail-seccess section">
+    {% csrf_token %}
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6 offset-lg-3 col-12">
+				<!-- Error Inner -->
+				<div class="success-inner">
+					{% if 'ACCEPTED' in status %}
+					<!-- https://fontawesome.com/icons -->
+					<h1><i class="fa fa-envelope"></i><span>Votre paiement a été effectué avec succès</span></h1>
+					<form action="{% url 'espacequiz' %}">
+                        {% csrf_token %}
+                        <!-- <input type="hidden" name="ACCEPTED" value="ACCEPTED">
+                        <input type="hidden" name="amount" value="{{amount}}"> -->
+                        <button type="submit" class="buttontext buttonfond">Cliquez ici pour accéder à votre espace quiz</button>
+                    </form>
+                    
+					{% else %}
+					<h1><i class="fa fa-envelope"></i><span>Votre paiement a echoué</span></h1>
+					<p> {{ status }} </p>
+					<a href="{% url 'accueil' %}" class="buttontext buttonfond">Retour à l'accueil</a>
+                    <a href="" class="buttontext buttonfond">Accéder mon espace client</a>
+					{% endif %}
+
+				</div>
+				<!--/ End Error Inner -->
+			</div>
+		</div>
+	</div>
+    <style>
+
+body{margin-top:20px;}
+.mail-seccess {
+    text-align: center;
+	background: #fff;
+	border-top: 1px solid #eee;
+}
+.mail-seccess .success-inner {
+	display: inline-block;
+}
+.mail-seccess .success-inner h1 {
+	font-size: 100px;
+	text-shadow: 3px 5px 2px #3333;
+	color: #006DFE;
+	font-weight: 700;
+}
+.mail-seccess .success-inner h1 span {
+	display: block;
+	font-size: 25px;
+	color: #333;
+	font-weight: 600;
+	text-shadow: none;
+	margin-top: 20px;
+}
+.mail-seccess .success-inner p {
+	padding: 20px 15px;
+}
+.mail-seccess .success-inner .btn{
+	color:#fff;
+}
+.buttontext {
+              border: none;
+              color: white;
+              padding: 15px 32px;
+              text-align: center;
+              text-decoration: none;
+              display: inline-block;
+              font-size: 16px;
+              margin: 4px 2px;
+              cursor: pointer;
+        }
+    
+        .buttonfond {background-color: #1ddc1a;}
+
+    </style>
+</section>
+

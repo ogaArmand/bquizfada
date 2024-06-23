@@ -30,14 +30,15 @@ urlpatterns = [
     path('apropos', apropos, name='apropos'),
     path('predications', predications, name='predications'),
     path('espacequiz', espacequiz, name='espacequiz'),
+    path('maperformance', maperformance, name='maperformance'),
     path('temoignages', temoignages, name='temoignages'),
-    path('create_account/', create_account, name='create_account'),
-    path('paiement/', paiement, name='paiement'),
-    path('recharge/', recharge, name='recharge'),
-    path('show_questions/', show_questions, name='show_questions'),
-    path('actualise_user_response/', actualise_user_response, name='actualise_user_response'),
-    path('save_answers/', save_answers, name='save_answers'),
-    path('save_answers_derniere/', save_answers_derniere, name='save_answers_derniere'),
+    path('create_account', create_account, name='create_account'),
+    path('recharge', recharge, name='recharge'),
+    path('show_questions', show_questions, name='show_questions'),
+    path('actualise_user_response', actualise_user_response, name='actualise_user_response'),
+    path('save_answers', save_answers, name='save_answers'),
+    path('save_answers_derniere', save_answers_derniere, name='save_answers_derniere'),
+    path('paiement', paiement, name='paiement'),
     path('payment_success_view', payment_success_view,name='payment_success_view'),
     # path('monthly_transactions_count', monthly_transactions_count,name='monthly_transactions_count'),
     # path('monthly_transactions_amount', monthly_transactions_amount,name='monthly_transactions_amount'),
@@ -46,7 +47,7 @@ urlpatterns = [
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 htmx_utrlpatern = [
-    path('connexion/', connexion, name='connexion'),
+    path('connexion', connexion, name='connexion'),
 ]
 
 urlpatterns += htmx_utrlpatern

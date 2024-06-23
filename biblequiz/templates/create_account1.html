@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <!-- Basic -->
+      <meta charset="utf-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <!-- Mobile Metas -->
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+      <!-- Site Metas -->
+      <meta name="keywords" content="" />
+      <meta name="description" content="" />
+      <meta name="author" content="" />
+      <link rel="shortcut icon" href="static/images/logofada.png" type="">
+      <title>Bible Quiz Fada</title>
+      <!-- bootstrap core css -->
+      <link rel="stylesheet" type="text/css" href="static/css/bootstrap.css" />
+      <!-- font awesome style -->
+      <link href="static/css/font-awesome.min.css" rel="stylesheet" />
+      <!-- Custom styles for this template -->
+      <link href="static/css/style.css" rel="stylesheet" />
+      <!-- responsive style -->
+      <link href="static/css/responsive.css" rel="stylesheet" />
+   </head>
+
+
+    <body class="font-inter">
+        <div class="container-fluid">
+            <div class="row">
+            <div class="row align-items-center vh-100 wrapper-back justify-content-center">
+                <div class="col-12 col-xl-6 col-lg-3 col-sm-4 col-md-6">
+                    <div class="auth-box p-4 shadow-sm">
+                        <div class="text-center 2xl:mb-10 mb-4">
+                            <!-- <div class="mobile-logo text-center mb-6 lg:hidden block">
+                                <a href="index.html">
+                                    <img src="static/assets/images/logo.jpg" alt="" class="w-25">
+                                </a>
+                            </div> -->
+                             <h3 class="mt-4 mb-0">Créer un compte</h3>
+                            <p class="fw-lighter text-body-tertiary desc-title">
+                               Pour créer votre compte, veuillez remplir les champs ci-dessous
+                            </p>
+                        </div>
+
+    
+    <!-- <button id="create-account-btn" class="btn-primary">Créer un compte</button> -->
+    <div id="create-account-form"  class="form-control">
+<form action="{% url 'create_account' %}" method="post">
+    {% csrf_token %}
+    {% for field in form %}
+        <div class="form-group">
+           
+        {% if field.label == 'Password' %}
+            <label for="{{ field.id_for_label }}" class="form-label {% if field.value %}hidden-label{% endif %}">{{ field.label }}</label>
+        {% endif %}
+        {% if field.label == 'Password confirmation' %}
+        <label for="{{ field.id_for_label }}" class="form-label {% if field.value %}hidden-label{% endif %}">{{ field.label }}</label>
+        {% endif %}
+        {% if field.label == 'Afficher les mots de passe' %}
+        <label for="{{ field.id_for_label }}" class="form-label {% if field.value %}hidden-label{% endif %}">{{ field.label }}</label>
+        {% endif %}
+        
+            {% if field.help_text %}
+            <div class="form-group ">
+                <small class="form-text text-muted">{{ field.help_text }}</small>
+            </div>
+            {% endif %}
+            <div class="card">
+                {{ field }}
+            </div>
+            {% if field.errors %}
+                <div class="invalid-feedback">
+                    {% for error in field.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    {% endfor %}
+    <div class="form-group form-control">
+    <button type="submit" class="btn btn-primary">Valider</button>
+</div>
+</form>
+
+
+<style>
+    .hidden-label {
+        display: none;
+    }
+    .help-text {
+    font-size: 14px; /* Taille de police */
+    color: #888; /* Couleur de texte */
+    margin-top: 5px; /* Espacement par rapport aux autres éléments */
+    /* Autres styles de mise en forme personnalisés */
+    background-color: #000;
+}
+/* Styles pour les champs de mot de passe */
+input[type="password"] {
+    border: 1px solid #ced4da; /* Bordure */
+    border-radius: 5px; /* Coins arrondis */
+    padding: 10px; /* Espacement intérieur */
+    font-size: 12px; /* Taille de police */
+    width: 100%; /* Largeur du champ */
+    box-sizing: border-box; /* Boîte de modèle de bordure */
+}
+
+/* Style pour les placeholders des champs de mot de passe */
+input[type="password"]::placeholder {
+    color: #999; /* Couleur du texte de l'placeholder */
+    opacity: 0.8; /* Opacité de l'placeholder */
+}
+
+/* Style pour les champs de mot de passe en état de focus */
+input[type="password"]:focus {
+    border-color: #4e73df; /* Couleur de la bordure lorsqu'en focus */
+    outline: none; /* Suppression de l'outline */
+    box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25); /* Ombre lorsqu'en focus */
+}
+
+</style>
+
+
+    </div>
+</div>
+ 
+ <div class="row">
+                            <div class="col-auto mx-auto mt-4">
+                                <div class="text-sm-end desc-title">
+                                    <small>
+                                        <script>document.write(new Date().getFullYear())</script> © bible quiz fada.
+                                        Tous droits r&eacute;serv&eacute;s
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- JAVASCRIPT -->
+              <!-- jQery -->
+      <script src="static/js/jquery-3.4.1.min.js"></script>
+      <!-- popper js -->
+      <script src="static/js/popper.min.js"></script>
+      <!-- bootstrap js -->
+      <script src="static/js/bootstrap.js"></script>
+      <!-- custom js -->
+      <script src="static/js/custom.js"></script>
+        <!-- <script>
+            document.getElementById("create-account-btn").addEventListener("click", function() {
+                document.getElementById("create-account-btn").style.display = "none"; // Masque le bouton "Créer un compte"
+                document.getElementById("create-account-form").style.display = "block"; // Affiche le formulaire
+            });
+        </script> -->
+
+    </body>
+</html>
+

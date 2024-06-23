@@ -10,8 +10,8 @@
       <meta name="keywords" content="" />
       <meta name="description" content="" />
       <meta name="author" content="" />
-      <link rel="shortcut icon" href="static/images/logofada.png" type="">
-      <title>Bible Quiz Fada</title>
+      <link rel="shortcut icon" href="static/images/favicon.png" type="">
+      <title></title>
       <!-- bootstrap core css -->
       <link rel="stylesheet" type="text/css" href="static/css/bootstrap.css" />
       <!-- font awesome style -->
@@ -48,9 +48,6 @@
                         </li>
                         <li class="nav-item">
                            <a class="nav-link" href="{% url 'espacequiz' %}">Espace Quiz</a>
-                        </li>
-                         <li class="nav-item">
-                           <a class="nav-link" href="{% url 'maperformance' %}">Mes statistiques</a>
                         </li>
                         <li class="nav-item">
                            <a class="nav-link" href="{% url 'contacts' %}">Contact</a>
@@ -129,104 +126,125 @@
             <div class="row">
                <div class="col-md-12">
                   <div class="full">
-                     <h3>Testimonial</h3>
+                     <h3>Création de compte utilisateur</h3>
                   </div>
                </div>
             </div>
          </div>
       </section>
       <!-- end inner page section -->
-      <!-- client section -->
-      <section class="client_section layout_padding">
+      <!-- why section -->
+      <section class="why_section layout_padding">
          <div class="container">
-            <div class="heading_container heading_center">
-               <h2>
-                  Customer's Testimonial
-               </h2>
-            </div>
-            <div id="carouselExample3Controls" class="carousel slide" data-ride="carousel">
-               <div class="carousel-inner">
-                  <div class="carousel-item active">
-                     <div class="box col-lg-10 mx-auto">
-                        <div class="img_container">
-                           <div class="img-box">
-                              <div class="img_box-inner">
-                                 <img src="static/images/client.jpg" alt="">
-                              </div>
-                           </div>
-                        </div>
-                        <div class="detail-box">
-                           <h5>
-                              Anna Trevor
-                           </h5>
-                           <h6>
-                              Customer
-                           </h6>
-                           <p>
-                              Dignissimos reprehenderit repellendus nobis error quibusdam? Atque animi sint unde quis reprehenderit, et, perspiciatis, debitis totam est deserunt eius officiis ipsum ducimus ad labore modi voluptatibus accusantium sapiente nam! Quaerat.
-                           </p>
-                        </div>
-                     </div>
+         
+            <div class="row">
+               <div class="col-lg-8 offset-lg-2">
+                  <div class="full">
+                     <form action="{% url 'create_account' %}" method="post">
+                        {% csrf_token %}
+                        <fieldset>
+                           <input type="text" placeholder="Nom utilisateur" name="username" required />
+                           <input type="text" placeholder="Nom et Prénoms" name="name" required />
+                           <input type="email" placeholder="Adresse mail" name="email" required />
+                           <div class="phone-container">
+                              <select name="countryCode" required>
+                                 <option value="+213">Algérie (+213)</option>
+                                 <option value="+1">États-Unis (+1)</option>
+                                 <option value="+33">France (+33)</option>
+                                 <option value="+44">Royaume-Uni (+44)</option>
+                                 <option value="+49">Allemagne (+49)</option>
+                                 <option value="+81">Japon (+81)</option>
+                                 <option value="+213">Algérie (+213)</option>
+                                 <option value="+229">Bénin (+229)</option>
+                                 <option value="+226">Burkina Faso (+226)</option>
+                                 <option value="+257">Burundi (+257)</option>
+                                 <option value="+237">Cameroun (+237)</option>
+                                 <option value="+238">Cap-Vert (+238)</option>
+                                 <option value="+236">République centrafricaine (+236)</option>
+                                 <option value="+235">Tchad (+235)</option>
+                                 <option value="+269">Comores (+269)</option>
+                                 <option value="+242">Congo (+242)</option>
+                                 <option value="+243">RDC (+243)</option>
+                                 <option value="+225">Côte d'Ivoire (+225)</option>
+                                 <option value="+253">Djibouti (+253)</option>
+                                 <option value="+240">Guinée équatoriale (+240)</option>
+                                 <option value="+291">Érythrée (+291)</option>
+                                 <option value="+251">Éthiopie (+251)</option>
+                                 <option value="+241">Gabon (+241)</option>
+                                 <option value="+220">Gambie (+220)</option>
+                                 <option value="+233">Ghana (+233)</option>
+                                 <option value="+224">Guinée (+224)</option>
+                                 <option value="+245">Guinée-Bissau (+245)</option>
+                                 <option value="+254">Kenya (+254)</option>
+                                 <option value="+266">Lesotho (+266)</option>
+                                 <option value="+231">Liberia (+231)</option>
+                                 <option value="+218">Libye (+218)</option>
+                                 <option value="+261">Madagascar (+261)</option>
+                                 <option value="+265">Malawi (+265)</option>
+                                 <option value="+223">Mali (+223)</option>
+                                 <option value="+222">Mauritanie (+222)</option>
+                                 <option value="+230">Maurice (+230)</option>
+                                 <option value="+212">Maroc (+212)</option>
+                                 <option value="+258">Mozambique (+258)</option>
+                                 <option value="+264">Namibie (+264)</option>
+                                 <option value="+227">Niger (+227)</option>
+                                 <option value="+234">Nigéria (+234)</option>
+                                 <option value="+250">Rwanda (+250)</option>
+                                 <option value="+221">Sénégal (+221)</option>
+                                 <option value="+248">Seychelles (+248)</option>
+                                 <option value="+232">Sierra Leone (+232)</option>
+                                 <option value="+27">Afrique du Sud (+27)</option>
+                                 <option value="+211">Soudan du Sud (+211)</option>
+                                 <option value="+249">Soudan (+249)</option>
+                                 <option value="+268">Eswatini (+268)</option>
+                                 <option value="+255">Tanzanie (+255)</option>
+                                 <option value="+228">Togo (+228)</option>
+                                 <option value="+216">Tunisie (+216)</option>
+                                 <option value="+256">Ouganda (+256)</option>
+                                 <option value="+260">Zambie (+260)</option>
+                                 <option value="+263">Zimbabwe (+263)</option>
+                                       
+                              </select>
+                              <input type="tel" placeholder="Numéro de téléphone" name="phone" required />
+                          </div>
+                           <input type="password" placeholder="Nouveau mot de passe" name="password1" required />
+                           <input type="password" placeholder="Confirmer le mot de passe" name="password2" required />
+                          
+                           <input type="submit" value="Créer mon compte" />
+                        </fieldset>
+                     </form>
                   </div>
-                  <div class="carousel-item">
-                     <div class="box col-lg-10 mx-auto">
-                        <div class="img_container">
-                           <div class="img-box">
-                              <div class="img_box-inner">
-                                 <img src="static/images/client.jpg" alt="">
-                              </div>
-                           </div>
-                        </div>
-                        <div class="detail-box">
-                           <h5>
-                              Anna Trevor
-                           </h5>
-                           <h6>
-                              Customer
-                           </h6>
-                           <p>
-                              Dignissimos reprehenderit repellendus nobis error quibusdam? Atque animi sint unde quis reprehenderit, et, perspiciatis, debitis totam est deserunt eius officiis ipsum ducimus ad labore modi voluptatibus accusantium sapiente nam! Quaerat.
-                           </p>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="carousel-item">
-                     <div class="box col-lg-10 mx-auto">
-                        <div class="img_container">
-                           <div class="img-box">
-                              <div class="img_box-inner">
-                                 <img src="static/images/client.jpg" alt="">
-                              </div>
-                           </div>
-                        </div>
-                        <div class="detail-box">
-                           <h5>
-                              Anna Trevor
-                           </h5>
-                           <h6>
-                              Customer
-                           </h6>
-                           <p>
-                              Dignissimos reprehenderit repellendus nobis error quibusdam? Atque animi sint unde quis reprehenderit, et, perspiciatis, debitis totam est deserunt eius officiis ipsum ducimus ad labore modi voluptatibus accusantium sapiente nam! Quaerat.
-                           </p>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="carousel_btn_box">
-                  <a class="carousel-control-prev" href="#carouselExample3Controls" role="button" data-slide="prev">
-                  <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
-                  <span class="sr-only">Previous</span>
-                  </a>
-                  <a class="carousel-control-next" href="#carouselExample3Controls" role="button" data-slide="next">
-                  <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
-                  <span class="sr-only">Next</span>
-                  </a>
                </div>
             </div>
          </div>
       </section>
-      <!-- end client section -->
+      <!-- end why section -->
+      <!-- arrival section -->
+      <section class="arrival_section">
+         <div class="container">
+            <div class="box">
+               <div class="arrival_bg_box">
+                  <img src="static/images/arrival-bg.png" alt="">
+               </div>
+               <div class="row">
+                  <div class="col-md-6 ml-auto">
+                     <div class="heading_container remove_line_bt">
+                        <h2>
+                           #NewArrivals
+                        </h2>
+                     </div>
+                     <p style="margin-top: 20px;margin-bottom: 30px;">
+                        Vitae fugiat laboriosam officia perferendis provident aliquid voluptatibus dolorem, fugit ullam sit earum id eaque nisi hic? Tenetur commodi, nisi rem vel, ea eaque ab ipsa, autem similique ex unde!
+                     </p>
+                     <a href="">
+                     Shop Now
+                     </a>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- end arrival section -->
       <!-- footer section -->
       <footer class="footer_section">
          <div class="container">
@@ -260,7 +278,7 @@
                </div>
                <div class="col-md-4 footer-col">
                   <div class="footer_detail">
-                     <a href="index.html" class="footer-logo">
+                     <a href="{% url 'accueil' %}" class="footer-logo">
                      Famms
                      </a>
                      <p>
@@ -303,6 +321,7 @@
             </div>
          </div>
       </footer>
+      <!-- footer section -->
       <!-- jQery -->
       <script src="static/js/jquery-3.4.1.min.js"></script>
       <!-- popper js -->

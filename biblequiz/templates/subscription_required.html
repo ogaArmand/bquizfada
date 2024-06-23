@@ -1,47 +1,55 @@
 <!DOCTYPE html>
-<html lang="fr">
-    {% load static %}
-    <head>     
-    <meta charset="utf-8">
-    <title>Bible quiz fada</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Système de gestion de dossiers" name="description">
-    <!-- App favicon -->
-    <link rel="shortcut icon" href="static/assets/images/logo.jpg">
-
-    <!-- plugin css -->
-    <link href="{%static 'assets/libs/jsvectormap/css/jsvectormap.min.css'%}" rel="stylesheet" type="text/css">
-    <link href="{%static 'assets/libs/select2/css/select2.min.css'%}" rel="stylesheet" type="text/css">
-    <!-- DataTables -->
-    <link href="{%static 'assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css' %}" rel="stylesheet" type="text/css">
-    <link href="{%static 'assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css' %}" rel="stylesheet" type="text/css">
-
-    <!-- Layout Js -->
-    <script src="{%static 'assets/js/layout.js' %}"></script>
-    <!-- Bootstrap Css -->
-    <link href="{%static 'assets/css/bootstrap.min.css' %}" id="bootstrap-style" rel="stylesheet" type="text/css">
-    <!-- Icons Css -->
-    <link href="{%static 'assets/css/icons.min.css' %}" rel="stylesheet" type="text/css">
-    <!-- App Css-->
-    <link href="{%static 'assets/css/app.min.css' %}" id="app-style" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-    </head>
+<html>
+   <head>
+      <!-- Basic -->
+      <meta charset="utf-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <!-- Mobile Metas -->
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+      <!-- Site Metas -->
+      <meta name="keywords" content="" />
+      <meta name="description" content="" />
+      <meta name="author" content="" />
+      <link rel="shortcut icon" href="static/images/logofada.png" type="">
+      <title>Bible Quiz Fada</title>
+      <!-- bootstrap core css -->
+      <link rel="stylesheet" type="text/css" href="static/css/bootstrap.css" />
+      <!-- font awesome style -->
+      <link href="static/css/font-awesome.min.css" rel="stylesheet" />
+      <!-- Custom styles for this template -->
+      <link href="static/css/style.css" rel="stylesheet" />
+      <!-- responsive style -->
+      <link href="static/css/responsive.css" rel="stylesheet" />
+   </head>
 
     <body class="font-inter">
+     <!-- inner page section -->
+      <section class="inner_page_head">
+         <div class="container_fuild">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="full">
+                     <h3>Abonnement requis</h3>
+                     <p>
+                          participez au jeu Biblique et gagnez une villa
+                    </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- end inner page section -->
         <div class="container-fluid">
-            <div class="row align-items-center vh-100 wrapper-back justify-content-center">
+            <div class="row align-items-center vh-50 wrapper-back justify-content-center">
                 <div class="col-12 col-xl-3 col-lg-3 col-sm-4 col-md-3">
                     <div class="auth-box p-4 shadow-sm">
                         <div class="text-center 2xl:mb-10 mb-4">
                             <div class="mobile-logo text-center mb-6 lg:hidden block">
-                                <a href="index.html">
-                                    <img src="static/assets/images/logo.jpg" alt="" class="w-25">
+                                <a href="{% url 'accueil' %}">
+                                    <img src="static/images/logofada.png" alt="" class="w-25">
                                 </a>
                             </div>
-                            <h3 class="mt-4 mb-0">Abonnement requis</h3>
-                            <p class="fw-lighter text-body-tertiary desc-title">
-                                participez au jeu Biblique et gagnez une villa
-                            </p>
+
                         </div>
                         
                         <p>Pour accéder à cette fonctionnalité, vous devez disposer d'un abonnement actif.</p>
@@ -50,7 +58,13 @@
                           <form action="{% url 'paiement' %}" method="post">
                             {% csrf_token %}
                             <input type="text" id="cout" name="cout" class="form-control" placeholder="Montant">
-                              <button onclick="seConnecter()" type="submit" class="btn btn-syg-primary waves-effect w-100 mt-4 text-center">Je m'abonne</button>
+                            <style>
+                                .btton{
+                                    background-color: #002c3e;
+                                    color: white;
+                                }
+                            </style>
+                              <button onclick="seConnecter()" type="submit" class="btn btton waves-effect w-100 mt-4 text-center">Je m'abonne</button>
                             </form> 
                         
                         <!-- END: Login Form -->
@@ -78,29 +92,14 @@
         </div>
 
         <!-- JAVASCRIPT -->
-        <script src="{% static 'assets/libs/jquery/jquery.min.js' %}"></script>
-        <script src="{% static 'assets/libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-        <script src="{% static 'assets/libs/metismenu/metisMenu.min.js' %}"></script>
-        <script src="{% static 'assets/libs/simplebar/simplebar.min.js' %}"></script>
-        <script src="{% static 'assets/libs/node-waves/waves.min.js' %}"></script>
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-
-        <!-- Icon -->
-        <script src="{% static 'assets/monochrome/bundle.js' %}"></script>
-
-        <!-- Required datatable js -->
-        <script src="{% static 'assets/libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>
-        <script src="{% static 'assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
-
-        <script src="{% static 'assets/js/pages/dashboard.init.js' %}"></script>
-        <script src="{% static 'assets/libs/select2/js/select2.min.js' %}"></script>
-        <script src="{% static 'assets/libs/bs-custom-file-input/bs-custom-file-input.min.js' %}"></script>
-        <script src="{% static 'assets/js/pages/form-element.init.js' %}"></script>
-        <script src="{% static 'assets/js/pages/form-advanced.init.js' %}"></script>
-        <script src="{% static 'assets/js/pages/datatables.init.js' %}"></script>
-
-        <!-- App js -->
-        <script src="{% static 'assets/js/app.js' %}"></script>
+                    <!-- jQery -->
+      <script src="static/js/jquery-3.4.1.min.js"></script>
+      <!-- popper js -->
+      <script src="static/js/popper.min.js"></script>
+      <!-- bootstrap js -->
+      <script src="static/js/bootstrap.js"></script>
+      <!-- custom js -->
+      <script src="static/js/custom.js"></script>
 
        
     </body>

@@ -85,7 +85,10 @@
                            <a class="nav-link" href="{% url 'predications' %}">Prédiations</a>
                         </li>
                         <li class="nav-item">
-                           <a class="nav-link" href="{% url 'show_questions' %}">Espace Quiz</a>
+                           <a class="nav-link" href="{% url 'espacequiz' %}">Espace Quiz</a>
+                        </li>
+                        <li class="nav-item">
+                           <a class="nav-link" href="{% url 'maperformance' %}">Mes statistiques</a>
                         </li>
                         <li class="nav-item">
                            <a class="nav-link" href="{% url 'contacts' %}">Contact</a>
@@ -183,6 +186,20 @@
                               <div class="row">
                                  <div class="col-md-7 col-lg-6 ">
                                     <div class="detail-box">
+                                       
+                                       {% if userresponse_today_count < 5 %}
+                                       <h1>
+                                          <span>
+                                          Veuillez patienter svp !
+                                          </span>
+                                          <br>
+                                          Vous avez déjà parcouru toutes les questions de la base
+                                       </h1>
+                                       <p">
+                                          La base des questions est en cours de mise à jour
+                                       </p>
+                                       
+                                       {% else %}
                                        <h1>
                                           <span>
                                           5 Questions / 5
@@ -190,19 +207,13 @@
                                           <br>
                                           Félicitations
                                        </h1>
-                                       {% if userresponse_today_count < 5 %}
-                                       <p">
-                                          La base des questions est en cours de mise à jour
-                                       </p>
-                                       
-                                       {% else %}
                                        <p>
                                           Votre objectif journalier est atteint. Vous avez déjà Répondu à vos 5 questions d'aujourd'hui
                                        </p>
                                        
                                        {% endif %}
                                        <div class="btn-box">
-                                          <a href="{% url 'accueil' %}" class="btn1">
+                                          <a href="{% url 'maperformance' %}" class="btn1">
                                              Je veux voir ma performance
                                           </a>
                                        </div>
@@ -216,6 +227,20 @@
                               <div class="row">
                                  <div class="col-md-7 col-lg-6 ">
                                     <div class="detail-box">
+                                       
+                                       {% if userresponse_today_count < 5 %}
+                                       <h1>
+                                          <span>
+                                          Veuillez patienter svp !
+                                          </span>
+                                          <br>
+                                          Vous avez déjà parcouru toutes les questions de la base
+                                       </h1>
+                                       <p">
+                                          La base des questions est en cours de mise à jour
+                                       </p>
+                                       
+                                       {% else %}
                                        <h1>
                                           <span>
                                           5 Questions / 5
@@ -223,19 +248,13 @@
                                           <br>
                                           Félicitations
                                        </h1>
-                                       {% if userresponse_today_count < 5 %}
-                                       <p">
-                                          La base des questions est en cours de mise à jour
-                                       </p>
-                                       
-                                       {% else %}
                                        <p>
                                           Votre objectif journalier est atteint. Vous avez déjà Répondu à vos 5 questions d'aujourd'hui
                                        </p>
                                        
                                        {% endif %}
                                        <div class="btn-box">
-                                          <a href="{% url 'accueil' %}" class="btn1">
+                                          <a href="{% url 'maperformance' %}" class="btn1">
                                              Je veux voir ma performance
                                           </a>
                                        </div>
@@ -249,6 +268,20 @@
                               <div class="row">
                                  <div class="col-md-7 col-lg-6 ">
                                     <div class="detail-box">
+                                       
+                                       {% if userresponse_today_count < 5 %}
+                                       <h1>
+                                          <span>
+                                          Veuillez patienter svp !
+                                          </span>
+                                          <br>
+                                          Vous avez déjà parcouru toutes les questions de la base
+                                       </h1>
+                                       <p">
+                                          La base des questions est en cours de mise à jour
+                                       </p>
+                                       
+                                       {% else %}
                                        <h1>
                                           <span>
                                           5 Questions / 5
@@ -256,19 +289,13 @@
                                           <br>
                                           Félicitations
                                        </h1>
-                                       {% if userresponse_today_count < 5 %}
-                                       <p">
-                                          La base des questions est en cours de mise à jour
-                                       </p>
-                                       
-                                       {% else %}
                                        <p>
                                           Votre objectif journalier est atteint. Vous avez déjà Répondu à vos 5 questions d'aujourd'hui
                                        </p>
                                        
                                        {% endif %}
                                        <div class="btn-box">
-                                          <a href="{% url 'accueil' %}" class="btn1">
+                                          <a href="{% url 'maperformance' %}" class="btn1">
                                              Je veux voir ma performance
                                           </a>
                                        </div>

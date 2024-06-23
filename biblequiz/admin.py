@@ -39,7 +39,7 @@ class Badgeadmin(admin.ModelAdmin):
     list_display = ('name','description')
 
 class UserProfileadmin(admin.ModelAdmin):
-    list_display = ('user','display_badges','date_of_birth','phone_number')
+    list_display = ('user','display_badges','date_of_birth','phone_indicatif','phone_number')
 
     def display_badges(self, obj):
         return ", ".join([badge.name for badge in obj.badges.all()])

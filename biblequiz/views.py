@@ -66,16 +66,54 @@ def moisenlettre():
     return mois_en_lettres
 
 
+
 def create_account(request):
-    if request.method=='POST':
-        form = CustomUserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        countryCode = request.POST.get('countryCode')
+        phone = request.POST.get('phone')
+        password1 = request.POST.get('password1')
+        password2 = request.POST.get('password2')
+
+        # Vérifiez que les mots de passe correspondent
+        if password1 != password2:
+            return render(request, 'create_account.html', {'error': 'Les mots de passe ne correspondent pas.'})
+
+        try:
+            # Créez l'utilisateur
+            user = User.objects.create_user(
+                username=username,
+                first_name=name,
+                email=email,
+                password=password1
+            )
+            
+            user.is_active = True  # Activez l'utilisateur immédiatement
+            user.save()
+
+            # Assurez-vous que le badge existe
+            instance_badge = Badge.objects.get(name='Simple joueur')
+
+            # Créez le profil utilisateur
+            userprofile = UserProfile.objects.create(
+                user=user,
+                phone_indicatif=countryCode,
+                phone_number=phone,
+            )
+            
+            # Assignez le badge à l'utilisateur
+            userprofile.badges.set([instance_badge])
+
             # Redirigez l'utilisateur vers la page de connexion ou toute autre page appropriée après la création du compte
             return redirect('loginuser')
-    else:
-        form = CustomUserCreationForm()
-    return render(request, 'create_account.html', {'form': form})
+
+        except Exception as e:
+            # Gérez les erreurs de création d'utilisateur
+            return render(request, 'create_account.html', {'error': str(e)})
+    
+    return render(request, 'create_account.html')
 
 
 class Unaccent(Func):
@@ -99,10 +137,11 @@ def loginuser(request):
 def connexion(request):
     username = request.POST.get('username')
     password = request.POST.get('pass')
-
+    print(username)
+    print(password)
     # Authentifier l'utilisateur avec les informations d'identification fournies
     user = authenticate(request, username=username, password=password)
-
+    print(user)
     if user is not None:
         # Connecter l'utilisateur s'il est authentifié avec succès
         login(request, user)
@@ -112,10 +151,12 @@ def connexion(request):
         request.session['user_prenom'] = user.first_name
         request.session['user_login'] = user.username
         request.session['email'] = user.email
+
         
-        return JsonResponse({'status': 'ok', 'message': 'Connecté'})
+        return JsonResponse({'status': 'ok'})
     else:
-        return JsonResponse({'status': 'PasOk', 'message': 'Identifiants incorrects.'})
+        print('user non connecté')
+        return JsonResponse({'status': 'PasOk'})
 
 
 
@@ -266,7 +307,7 @@ def show_questions(request):
                     'userResponse_today_count_just':userResponse_today_count_just,
                     'questions': questions,
                 }
-                print('OKOKOKOK OKOKOKOK')
+                
                 return render(request, 'show_questions.html', context)
             else:
                 userresponse_today = UserResponse.objects.filter(user=request.user,date_displayed=today)
@@ -307,14 +348,18 @@ def check_payment_status(transaction_id, site_id, apikey):
     
 @csrf_exempt
 def payment_success_view(request): # url de retour
+    customer_id = request.GET.get('customer_id') 
+    
     if request.method == 'POST':
         transaction_id = request.POST.get('transaction_id')  # Récupérez le transaction_id de la requête POST
+        # customer_id = request.POST.get('customer_id')  # Récupérez le transaction_id de la requête POST
         site_id = '524004'  # Remplacez par votre site_id
         apikey = '200725165962c58cffd92489.76665090'  # Remplacez par votre apikey
 
         # Vérifiez le statut de la transaction en utilisant la fonction check_payment_status
         result = check_payment_status(transaction_id, site_id, apikey)
-
+        
+        
         amount = result["data"]["amount"],
         status = result["data"]["status"],
         payment_method = result["data"]["payment_method"],
@@ -324,6 +369,14 @@ def payment_success_view(request): # url de retour
         payment_date = result["data"]["payment_date"],
         fund_availability_date = result["data"]["fund_availability_date"],
         
+        confirm_trans = Transaction.objects.get(idTransaction=transaction_id)
+      
+        cout_une_question = 50
+        amount = confirm_trans.amount
+        nb_question = amount/cout_une_question
+
+        user_instance = User.objects.get(pk=customer_id)
+
         if result is not None:
             # Si la requête a réussi, vous pouvez renvoyer le statut de la transaction dans la réponse JSON
             context = {
@@ -336,6 +389,19 @@ def payment_success_view(request): # url de retour
             'payment_date':payment_date,
             'fund_availability_date':fund_availability_date
             }
+            
+            confirm_trans.confirm = True
+            confirm_trans.save()
+
+            subscription, created = Subscription.objects.update_or_create(
+        user=user_instance,
+        defaults={
+            'activated': True,
+            'remaining_questions': nb_question
+        }
+    )
+            
+
             #return JsonResponse({"status": result["status"]})
             return render(request, "success.html",context)
         else:
@@ -358,11 +424,13 @@ def paiement(request):
        
         cout = int(cout)
         user = request.user
+        print(user)
 
     # Accédez aux informations de l'utilisateur, par exemple :
         customer_name = user.first_name
         customer_email = user.email
         customer_id = user.id
+        print(customer_id)
         customer_last_name = user.last_name
         transaction_id = generate_random_transaction_id()
          # Obtenez le jeton CSRF à partir de la requête POST
@@ -394,7 +462,8 @@ def paiement(request):
         # "notify_url": "https://dry-sands-12879-45d4e55d9cf1.herokuapp.com/api/kobotoolbox-data/",
         # "notify_url": "https://webhook.site/9c604710-681b-434b-80b9-535385e56e30",
         # "notify_url": request.build_absolute_uri(reverse('payment_notification')),
-        "return_url": request.build_absolute_uri(reverse('payment_success_view')),  # Utilise la vue payment_success_view comme URL de redirection
+        # "return_url": request.build_absolute_uri(reverse('payment_success_view')),  # Utilise la vue payment_success_view comme URL de redirection
+        "return_url": request.build_absolute_uri(f"{reverse('payment_success_view')}?customer_id={customer_id}"),
         "channels": "ALL",
         "metadata": "user1",
         "lang": "FR",
@@ -412,6 +481,7 @@ def paiement(request):
             idTransaction=transaction_id,
             timestamp=datetime.now()
         )
+
 
         try:
             response = requests.post(api_url, headers=headers, json=data)
@@ -445,10 +515,7 @@ def save_answers(request):
         answer_id = data.get('answer_id')
 
         try:
-            print(data)
-            print(question_id)
-            print(Idquestion_aff)
-            print(answer_id)
+           
             instance_question = Question.objects.get(pk=Idquestion_aff)
             QuestionHistory_aff = UserQuestionHistory.objects.get(user=request.user, question=instance_question)
             QuestionHistory_aff.is_affiche = True
@@ -668,7 +735,7 @@ def actualise_user_response(request):
 
 
 def contacts(request):
-    return render(request,'contact.html')
+    return render(request,'create_account.html')
 
 def apropos(request):
     return render(request,'about.html')
@@ -712,10 +779,14 @@ def espacequiz(request):
             userResponse_today = UserResponse.objects.filter(user=request.user,date_displayed=today)
             userResponse_today_count = userResponse_today.count()
 
+            userResponse_total_just = UserResponse.objects.filter(user=request.user,is_correct=True)
             userResponse_today_just = UserResponse.objects.filter(user=request.user,date_displayed=today,is_correct=True)
-            userResponse_today_count_just = userResponse_today_just.count()
+            userResponse_today_count_just = userResponse_today_just.count() #Nombre de réponses justes ce jour
+            userResponse_total_count_just = userResponse_total_just.count() # nombre total de réponses justes
             userResponse_today_count_faux=userResponse_today_count-userResponse_today_count_just
-                    
+            
+            nb_point = userResponse_total_count_just*10
+
             # Limitez à 5 questions par jour
             remaining_questions = min(subscription.remaining_questions, 5 - userResponse_today_count)
             questions = ""
@@ -753,9 +824,11 @@ def espacequiz(request):
                     'userResponse_today_count':userResponse_today_count,
                     'userResponse_today_count_just':userResponse_today_count_just,
                     'questions': questions,
+                    'solde_question':subscription.remaining_questions,
+                    'nb_point':nb_point
                 }
                 
-                return render(request,'blog_list.html',context)
+                return render(request,'espacequiz.html',context)
                 # return render(request, 'show_questions.html', context)
             else:
                 userresponse_today = UserResponse.objects.filter(user=request.user,date_displayed=today)
@@ -770,6 +843,39 @@ def espacequiz(request):
             return render(request, 'subscription_required.html')
     else:
         return render(request, 'subscription_required.html')
+    
+def maperformance(request):
+    user_connecte = request.session.get('user_connecte', None)
+    user_cf = request.session.get('user_cf', None)
+    
+    if user_connecte is None:
+        # La variable de session user_cf n'existe pas, rediriger vers la page de connexion
+        return redirect('loginuser')
+
+    if Subscription.objects.filter(user=request.user, activated=True).exists():
+        subscription = Subscription.objects.get(user=request.user)
+        
+        # Récupérer la date actuelle
+        today = date.today()
+
+        userResponse_total_ = UserResponse.objects.filter(user=request.user)
+        userResponse_total_just = UserResponse.objects.filter(user=request.user,is_correct=True)
+
+        userResponse_total_count_just = userResponse_total_just.count() # nombre total de réponses justes
+        userResponse_total_count = userResponse_total_.count() # nombre total de réponses justes
+        userResponse_today_count_faux=userResponse_total_count-userResponse_total_count_just
+        
+        nb_point = userResponse_total_count_just*10
+        
+        context = {
+                'userResponse_today_count_faux':userResponse_today_count_faux,
+                'userResponse_total_count':userResponse_total_count,
+                'userResponse_total_count_just':userResponse_total_count_just,
+                'solde_question':subscription.remaining_questions,
+                'nb_point':nb_point
+            }
+            
+        return render(request,'maperformance.html',context)
     
 
 def temoignages(request):
